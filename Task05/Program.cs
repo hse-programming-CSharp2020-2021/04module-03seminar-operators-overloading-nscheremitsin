@@ -66,7 +66,7 @@ namespace Task05
     {
         public static void Main(string[] args)
         {
-            CultureInfo.CurrentCulture = new CultureInfo("en-US");
+            CultureInfo.CurrentCulture = new CultureInfo("ru-Ru");
             try
             {
                 Console.WriteLine((Euro)new Dollar() { Sum = decimal.Parse(Console.ReadLine()) });
