@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 /*
 Источник: https://metanit.com/
@@ -48,6 +49,8 @@ namespace Task04
     {
         public static void Main(string[] args)
         {
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
+
             Console.WriteLine((Celcius)new Fahrenheit() { Gradus = double.Parse(Console.ReadLine()) });
             Console.WriteLine((Fahrenheit)new Celcius() { Gradus = double.Parse(Console.ReadLine()) });
         }

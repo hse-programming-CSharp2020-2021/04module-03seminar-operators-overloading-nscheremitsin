@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 /*
 Источник: https://metanit.com/
@@ -26,22 +27,50 @@
 
 namespace Task05
 {
-    class Dollar
+    abstract class Currency
     {
-        public decimal Sum { get; set; }
+        protected const decimal OneEuroToDollar = 1.14M;
+
+        private decimal sum;
+
+        public decimal Sum
+        {
+            get => sum;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException();
+                }
+                sum = value;
+            }
+        }
+
+        public override string ToString() => string.Format("{0:f2}", Sum);
     }
-    class Euro
+
+
+    class Dollar : Currency
     {
-        public decimal Sum { get; set; }
+        public static implicit operator Dollar(Euro euro) => new Dollar() { Sum = euro.Sum * OneEuroToDollar };
     }
+
+
+    class Euro : Currency
+    {
+        public static explicit operator Euro(Dollar dollar) => new Euro() { Sum = dollar.Sum / OneEuroToDollar };
+    }
+
 
     class MainClass
     {
         public static void Main(string[] args)
         {
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
             try
             {
-
+                Console.WriteLine((Euro)new Dollar() { Sum = decimal.Parse(Console.ReadLine()) });
+                Console.WriteLine((Dollar)new Euro() { Sum = decimal.Parse(Console.ReadLine()) });
             }
             catch (ArgumentException)
             {
