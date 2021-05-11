@@ -52,8 +52,8 @@ namespace Task01
             string[] strs = Console.ReadLine().Split();
             try
             {
-                Bread bread = new Bread { Weight = int.Parse(strs[0]) };
-                Butter butter = new Butter { Weight = int.Parse(strs[1]) };
+                Bread bread = new Bread { Weight = CheckInputValidity(int.Parse(strs[0])) };
+                Butter butter = new Butter { Weight = CheckInputValidity(int.Parse(strs[1])) };
                 Sandwich sandwich = bread + butter;
                 Console.WriteLine(sandwich.Weight);
 
@@ -62,6 +62,16 @@ namespace Task01
             {
                 Console.WriteLine("error");
             }
+        }
+
+
+        public static int CheckInputValidity(int num)
+        {
+            if (num < 0)
+            {
+                throw new ArgumentException();
+            }
+            return num;
         }
     }
 }
